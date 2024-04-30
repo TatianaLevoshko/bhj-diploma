@@ -3,13 +3,17 @@
  * входа в портал
  * */
 class LoginForm extends AsyncForm {
-  /**
-   * Производит авторизацию с помощью User.login
-   * После успешной авторизации, сбрасывает форму,
-   * устанавливает состояние App.setState( 'user-logged' ) и
-   * закрывает окно, в котором находится форма
-   * */
   onSubmit(data) {
-
+    // Обращение к API для авторизации
+    User.login(data, (err, response) => {
+      if (err === null && response.success) {
+        // При успешной авторизации сбрасываем форму
+        this.element.reset();
+        // Устанавливаем состояние "пользователь авторизован"
+        App.setState('user-logged');
+        // Закрываем окно формы
+        App.getModal('register').close();
+      }
+    });
   }
 }

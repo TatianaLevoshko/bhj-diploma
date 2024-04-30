@@ -5,24 +5,17 @@
  * */
 
 class UserWidget {
-  /**
-   * Устанавливает полученный элемент
-   * в свойство element.
-   * Если переданный элемент не существует,
-   * необходимо выкинуть ошибку.
-   * */
-  constructor(element){
-
+  constructor(element) {
+    if (!element) {
+      throw new Error('Элемент не передан');
+    } 
+    this.element = element
   }
 
-  /**
-   * Получает информацию о текущем пользователе
-   * с помощью User.current()
-   * Если пользователь авторизован,
-   * в элемент .user-name устанавливает имя
-   * авторизованного пользователя
-   * */
-  update(){
-
+  /* Получает информацию о текущем пользователе. Если пользователь авторизован, в элемент .user-name устанавливает имя авторизованного пользователя */
+  update() {
+    if(User.current()) {
+      this.element.querySelector('.user-name').textContent = User.current().name;
+     }
   }
 }
